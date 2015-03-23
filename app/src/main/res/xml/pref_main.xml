@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="kernel_cat"
+        android:title="@string/kernel_pref_title">
+        <EditTextPreference
+            android:key="backup_epref"
+            android:summary="@string/backup_epref_summary"
+            android:textColor="@android:color/black"
+            android:title="@string/backup_epref_title">
+
+        </EditTextPreference>
+
+        <EditTextPreference
+            android:key="backup_mod_epref"
+            android:summary="@string/backup_mod_epref_summary"
+            android:textColor="@android:color/black"
+            android:title="@string/backup_mod_epref_title">
+
+        </EditTextPreference>
+
+
+        <ListPreference
+            android:key="restore_lpref"
+            android:summary="@string/restore_epref_summary"
+            android:title="@string/restore_epref_title">
+
+        </ListPreference>
+
+        <ListPreference
+            android:key="restore_mod_lpref"
+            android:summary="@string/restore_mod_epref_summary"
+            android:title="@string/restore_mod_epref_title">
+
+        </ListPreference>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="rec_cat"
+        android:title="@string/rec_pref_title">
+
+        <EditTextPreference
+            android:key="rec_epref"
+            android:summary="@string/rec_epref_summary"
+            android:textColor="@android:color/black"
+            android:title="@string/rec_epref_title">
+
+        </EditTextPreference>
+
+        <ListPreference
+            android:key="rec_lpref"
+            android:title="@string/rec_lpref_title"
+            android:summary="@string/rec_lpref_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="msim_cat"
+        android:title="@string/msim_pref_title">
+
+        <Preference
+            android:key="delete_pref"
+            android:title="@string/delete_all_backups"
+            android:summary="@string/delete_summary" />
+
+        <SwitchPreference
+            android:key="msim_spref"
+            android:summary="@string/msim_spref_summary"
+            android:title="@string/msim_spref_title">
+
+        </SwitchPreference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
