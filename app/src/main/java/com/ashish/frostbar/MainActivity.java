@@ -417,12 +417,19 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
     private void updateRestoreList() {
 
-        File file;
+        File file = null;
         List<String> myList;
 
         myList = new ArrayList<String>();
+        if(deviceName.equals(grand)) {
         file = new File("/storage/sdcard0/Frostbar");
-        File list[] = file.listFiles();
+        } else if(deviceName.equals(xperiaS)){
+            file = new File("/sdcard/Frostbar");
+        }
+        File list[] = new File[0];
+        if (file != null) {
+            list = file.listFiles();
+        }
 
         if (list != null) {
             for (File aList : list) {
@@ -441,12 +448,19 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
     private void updateRestoreWithModuleList() {
 
-        File file;
+        File file = null;
         List<String> myList;
 
         myList = new ArrayList<String>();
-        file = new File("/storage/sdcard0/Frostbar");
-        File list[] = file.listFiles();
+        if(deviceName.equals(grand)) {
+            file = new File("/storage/sdcard0/Frostbar");
+        } else if(deviceName.equals(xperiaS)){
+            file = new File("/sdcard/Frostbar");
+        }
+        File list[] = new File[0];
+        if (file != null) {
+            list = file.listFiles();
+        }
 
         if (list != null) {
             for (File aList : list) {
@@ -469,12 +483,19 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
     private void updateRecoveryList() {
 
-        File file;
+        File file = null;
         List<String> myList;
 
         myList = new ArrayList<String>();
-        file = new File("/storage/sdcard0/Frostbar/recovery");
-        File list[] = file.listFiles();
+        if(deviceName.equals(grand)) {
+            file = new File("/storage/sdcard0/Frostbar/recovery");
+        } else if(deviceName.equals(xperiaS)){
+            file = new File("/sdcard/Frostbar/recovery");
+        }
+        File list[] = new File[0];
+        if (file != null) {
+            list = file.listFiles();
+        }
 
         if (list != null) {
             for (File aList : list) {
