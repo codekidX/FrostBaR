@@ -17,7 +17,6 @@ import com.ashish.frostbar.Utils.MyPreference;
 public class DeviceSelectionActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     MyPreference myPreference;
-    private DeviceSelectionActivity deviceSelectionActivity;
 
 
     public String grand = "gd";
@@ -108,7 +107,7 @@ public class DeviceSelectionActivity extends Activity implements AdapterView.OnI
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        deviceSelectionActivity.finishActivity(0);
+        this.finish();
 
     }
 }

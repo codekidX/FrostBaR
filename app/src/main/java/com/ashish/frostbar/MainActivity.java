@@ -151,6 +151,12 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         if (prefScreen != null) {
             mMsimSwitchPreference = (SwitchPreference) prefScreen.findPreference(MSIM_PREF);
         }
+        if(deviceName.equals(xperiaS)){
+            mMsimSwitchPreference.setEnabled(false);
+
+        } else {
+            mMsimSwitchPreference.setEnabled(true);
+        }
         if (mMsimSwitchPreference != null) {
             mMsimSwitchPreference.setOnPreferenceChangeListener(this);
         }
