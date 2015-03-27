@@ -7,10 +7,10 @@
     <string name="backup_mod_epref_title">Backup Kernel with Modules</string>
     <string name="restore_epref_title">Flash/Restore Kernel</string>
     <string name="restore_mod_epref_title">Restore Kernel with Modules</string>
-    <string name="backup_mod_epref_summary">Backup currently running kernel with modules. Modules are the one responsible for basic features working like WiFi. You can use this option when you backup frost for the first time.</string>
+    <string name="backup_mod_epref_summary">(Experimental)</string>
     <string name="backup_epref_summary">Backup currently running kernel</string>
     <string name="restore_epref_summary">Restore previously backed up kernel.Suggestion: Reboot after restore completes.</string>
-    <string name="restore_mod_epref_summary">Restore previously backed up kernel with modules.Suggestion: Reboot after restore completes.</string>
+    <string name="restore_mod_epref_summary">(Experimental)</string>
     <string name="msim_spref_title">Enable/Disable DualSim</string>
     <string name="msim_spref_summary">Toggle between Sim states. To avoid confusion when switch is ON Dual-Sim is ON, when switch is OFF Dual-Sim is OFF</string>
     <string name="action_settings">Settings</string>

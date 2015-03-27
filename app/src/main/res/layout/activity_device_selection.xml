@@ -33,7 +33,8 @@
         android:elevation="4dp"
         android:fontFamily="sans-serif-light"
         android:onClick="goToMainPref"
+        android:layout_marginRight="18dp"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/device_spinner"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="18dp" />
 </RelativeLayout>
