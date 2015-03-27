@@ -32,7 +32,6 @@
         android:id="@+id/fabbutton"
         android:elevation="4dp"
         android:fontFamily="sans-serif-light"
-        android:layout_marginRight="18dp"
         android:onClick="goToMainPref"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/device_spinner"

@@ -17,8 +17,10 @@ import com.ashish.frostbar.Utils.MyPreference;
 public class DeviceSelectionActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     MyPreference myPreference;
-    SharedPreferences wwwpref;
-    SharedPreferences.Editor editor = wwwpref.edit();
+
+
+    public String grand = "gd";
+    public String xperiaS = "xs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,10 @@ public class DeviceSelectionActivity extends Activity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        myPreference.setDevicePref(i);
+
+        setDevicePref(i);
+
+
 
     }
 
@@ -70,12 +75,38 @@ public class DeviceSelectionActivity extends Activity implements AdapterView.OnI
 
     }
 
+    public void setDevicePref(int id) {
+
+        SharedPreferences wwwpref = getSharedPreferences(MyPreference.DEVICE_PREF, 0);
+        SharedPreferences.Editor editor = wwwpref.edit();
+        if(id == 0) {
+
+            editor.putString("device", "");
+        }
+
+        else if(id == 1) {
+
+            editor.putString("device", grand);
+
+
+        } else if(id == 2) {
+            editor.putString("device", xperiaS);
+
+        }
+        editor.apply();
+
+    }
+
     public void goToMainPref(View view) {
 
+        SharedPreferences wwwpref = getSharedPreferences(MyPreference.DEVICE_PREF, 0);
+        SharedPreferences.Editor editor = wwwpref.edit();
         wwwpref = getSharedPreferences(MyPreference.DEVICE_PREF, 0);
         editor.putBoolean("setup_done", true);
         editor.apply();
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 }

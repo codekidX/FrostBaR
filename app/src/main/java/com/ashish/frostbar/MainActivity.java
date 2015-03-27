@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.ashish.frostbar.Utils.MyPreference;
 import com.ashish.frostbar.helper.GalaxyGrandBlocks;
 import com.ashish.frostbar.helper.GeneralPurpose;
+import com.ashish.frostbar.helper.XperiaSBlocks;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -65,6 +66,9 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
     private String deviceName = "";
     private boolean deviceSetup = false;
 
+    public String grand = "gd";
+    public String xperiaS = "xs";
+    private boolean firstbackup;
     //Shared preference
     SharedPreferences wwwpref;
 
@@ -107,12 +111,23 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
         if (!firstKernel.exists()) {
 
+            SharedPreferences.Editor editor = wwwpref.edit();
             Intent intent = new Intent(this, DeviceSelectionActivity.class);
             startActivity(intent);
 
+            deviceName = wwwpref.getString("device", "");
             deviceSetup = wwwpref.getBoolean("setup_done", false);
             if(deviceSetup) {
-                boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
+
+                if(deviceName.matches("")){
+                    Toast.makeText(getBaseContext(), "Select device first", Toast.LENGTH_LONG).show();
+                } else if(deviceName.equals(grand)) {
+                     firstbackup = GalaxyGrandBlocks.backupFirstKernel();
+                }
+                else {
+
+                     firstbackup = XperiaSBlocks.backupFirstKernel();
+                }
                 if (firstbackup) {
 
                     updateRestoreList();
@@ -268,31 +283,59 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         } else if (preference == mBackupPreference) {
 
             String value = (String) newValue;
-            GalaxyGrandBlocks.BootBackup(value);
-            Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            if(deviceName.equals(grand)) {
+                GalaxyGrandBlocks.BootBackup(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            } else if(deviceName.equals(xperiaS)) {
+                XperiaSBlocks.BootBackup(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            }
             updateRestoreList();
         } else if (preference == mBackupModPreference) {
 
             String value = (String) newValue;
-            GalaxyGrandBlocks.BootBackupWithModules(value);
-            Toast.makeText(getBaseContext(), "Backup of " + value + " with modules is done", Toast.LENGTH_SHORT).show();
+            if(deviceName.equals(grand)) {
+                GalaxyGrandBlocks.BootBackupWithModules(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            } else if(deviceName.equals(xperiaS)) {
+                XperiaSBlocks.BootBackupWithModules(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            }
             updateRestoreWithModuleList();
         } else if (preference == mBackupRecoveryPreference) {
 
             String value = (String) newValue;
-            GalaxyGrandBlocks.RecoveryBackup(value);
-            Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            if(deviceName.equals(grand)) {
+                GalaxyGrandBlocks.RecoveryBackup(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            } else if(deviceName.equals(xperiaS)) {
+                XperiaSBlocks.RecoveryBackup(value);
+                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+            }
             updateRecoveryList();
         } else if (preference == mRestorePreference) {
 
             String value = (String) newValue;
-            boolean restoreState = GalaxyGrandBlocks.RestoreBackup(value);
-            if (restoreState) {
-                rebootDialog.show();
-                Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+            if(deviceName.equals(grand)) {
+               boolean restoreState = GalaxyGrandBlocks.RestoreBackup(value);
+                if (restoreState) {
+                    rebootDialog.show();
+                    Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+                }
+
+            } else if(deviceName.equals(xperiaS)) {
+                boolean restoreState = XperiaSBlocks.RestoreBackup(value);
+                if (restoreState) {
+                    rebootDialog.show();
+                    Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+                }
+
             }
+
         } else if (preference == mRestoreModPreference) {
 
             String value = (String) newValue;
@@ -427,19 +470,20 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
     }
 
-    private void getDeviceFromUser() {
+    public void setDevicePref(int id) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.select_device)
-                .setSingleChoiceItems(R.array.supported_devices, -1, new DialogInterface.OnClickListener() {
+        SharedPreferences.Editor editor = wwwpref.edit();
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
+        if(id == 1) {
 
-                        /* User clicked Yes so do some stuff */
+            editor.putString("GGD", grand);
 
 
-                    }
-                });
+        } else if(id == 2) {
+            editor.putString("XS", xperiaS);
+
+        }
+        editor.apply();
 
     }
 
