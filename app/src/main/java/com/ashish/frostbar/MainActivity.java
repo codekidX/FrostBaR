@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.EditTextPreference;
@@ -21,6 +22,7 @@ import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ashish.frostbar.Utils.MyPreference;
 import com.ashish.frostbar.helper.GalaxyGrandBlocks;
 import com.ashish.frostbar.helper.GeneralPurpose;
 
@@ -59,6 +61,11 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
     private SwitchPreference mMsimSwitchPreference;
     private Preference mDeletePreference;
 
+    //
+
+    //Shared preference
+    SharedPreferences wwwpref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +78,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             setTheme(R.style.DarkTheme);
         }
         createDirectory();
+        wwwpref = getSharedPreferences(MyPreference.DEVICE_PREF, 0);
 
         PreferenceScreen prefScreen = getPreferenceScreen();
 
@@ -99,6 +107,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
             Intent intent = new Intent(this, DeviceSelectionActivity.class);
             startActivity(intent);
+
             boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
             if (firstbackup) {
 

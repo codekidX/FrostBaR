@@ -1,18 +1,21 @@
 package com.ashish.frostbar;
 
-import android.animation.Animator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.ashish.frostbar.Utils.MyPreference;
 
-public class DeviceSelectionActivity extends Activity {
+
+public class DeviceSelectionActivity extends Activity implements AdapterView.OnItemSelectedListener {
+
+    MyPreference myPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class DeviceSelectionActivity extends Activity {
         deviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(deviceAdapter);
+        spinner.setOnItemSelectedListener(this);
     }
 
 
@@ -44,10 +48,22 @@ public class DeviceSelectionActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        myPreference.setDevicePref(i);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

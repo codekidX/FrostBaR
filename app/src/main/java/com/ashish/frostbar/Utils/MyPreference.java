@@ -20,12 +20,12 @@ public class MyPreference extends Activity{
         SharedPreferences deviceSettings = getSharedPreferences(DEVICE_PREF, 0);
         SharedPreferences.Editor editor = deviceSettings.edit();
 
-        if(id == 0) {
+        if(id == 1) {
 
             editor.putString("GGD", grand);
 
 
-        } else if(id == 1) {
+        } else if(id == 2) {
             editor.putString("XS", xperiaS);
 
         }
