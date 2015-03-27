@@ -97,6 +97,8 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
         if (!firstKernel.exists()) {
 
+            Intent intent = new Intent(this, DeviceSelectionActivity.class);
+            startActivity(intent);
             boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
             if (firstbackup) {
 
