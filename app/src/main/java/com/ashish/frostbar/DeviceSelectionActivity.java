@@ -2,6 +2,7 @@ package com.ashish.frostbar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import com.ashish.frostbar.Utils.MyPreference;
 public class DeviceSelectionActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     MyPreference myPreference;
+    SharedPreferences wwwpref;
+    SharedPreferences.Editor editor = wwwpref.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,15 @@ public class DeviceSelectionActivity extends Activity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    public void goToMainPref(View view) {
+
+        wwwpref = getSharedPreferences(MyPreference.DEVICE_PREF, 0);
+        editor.putBoolean("setup_done", true);
+        editor.apply();
+
 
     }
 }

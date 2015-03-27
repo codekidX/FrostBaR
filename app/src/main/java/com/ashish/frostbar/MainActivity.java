@@ -61,7 +61,9 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
     private SwitchPreference mMsimSwitchPreference;
     private Preference mDeletePreference;
 
-    //
+    //preferences
+    private String deviceName = "";
+    private boolean deviceSetup = false;
 
     //Shared preference
     SharedPreferences wwwpref;
@@ -108,11 +110,14 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             Intent intent = new Intent(this, DeviceSelectionActivity.class);
             startActivity(intent);
 
-            boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
-            if (firstbackup) {
+            deviceSetup = wwwpref.getBoolean("setup_done", false);
+            if(deviceSetup) {
+                boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
+                if (firstbackup) {
 
-                updateRestoreList();
-                Toast.makeText(getBaseContext(), "First Time Running app so the currently running kernel is backed up for safety", Toast.LENGTH_LONG).show();
+                    updateRestoreList();
+                    Toast.makeText(getBaseContext(), "First Time Running app so the currently running kernel is backed up for safety", Toast.LENGTH_LONG).show();
+                }
             }
 
         }

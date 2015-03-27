@@ -22,4 +22,19 @@
         android:layout_marginTop="69dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/ripple_fab"
+        android:src="@drawable/ic_action_edit"
+        android:id="@+id/fabbutton"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginRight="18dp"
+        android:onClick="goToMainPref"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/device_spinner"
+        android:layout_marginBottom="40dp" />
 </RelativeLayout>
