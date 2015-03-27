@@ -349,11 +349,24 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         } else if (preference == mRecoveryPreference) {
 
             String value = (String) newValue;
-            boolean restoreState = GalaxyGrandBlocks.SwitchRecovery(value);
-            if (restoreState) {
-                rebootDialog.show();
-            } else {
-                Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+            if(deviceName.equals(grand)) {
+                boolean restoreState = GalaxyGrandBlocks.SwitchRecovery(value);
+                if (restoreState) {
+                    rebootDialog.show();
+                    Toast.makeText(getBaseContext(), "Grand : Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+                }
+
+            } else if(deviceName.equals(xperiaS)) {
+                boolean restoreState = XperiaSBlocks.SwitchRecovery(value);
+                if (restoreState) {
+                    rebootDialog.show();
+                    Toast.makeText(getBaseContext(), "Xperia S : Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         }

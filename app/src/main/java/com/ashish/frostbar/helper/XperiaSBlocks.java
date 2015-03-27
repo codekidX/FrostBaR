@@ -13,13 +13,13 @@ public class XperiaSBlocks {
     public static boolean backupFirstKernel() {
 
 
-        return GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/firstboot.img");
+        return GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p3 of=/storage/sdcard0/Frostbar/firstboot.img");
 
     }
 
     public static void BootBackup(String value) {
 
-        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/" + value + ".img");
+        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p3 of=/storage/sdcard0/Frostbar/" + value + ".img");
     }
 
     public static void BootBackupWithModules(String value) {
@@ -36,7 +36,7 @@ public class XperiaSBlocks {
         }
         File modules = new File("/storage/sdcard0/Frostbar/" + value + "/modules");
 
-        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img");
+        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p3 of=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img");
         GeneralPurpose.executeCommand("cp /system/lib/modules/* /storage/sdcard0/Frostbar/" + value + "/modules");
     }
 
@@ -44,7 +44,7 @@ public class XperiaSBlocks {
     public static boolean RestoreBackup(String value) {
 
 
-        return GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + " of=/dev/block/mmcblk0p5");
+        return GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + " of=/dev/block/mmcblk0p3");
 
     }
 
@@ -60,7 +60,7 @@ public class XperiaSBlocks {
 
             }
 
-            GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img of=/dev/block/mmcblk0p5");
+            GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img of=/dev/block/mmcblk0p3");
             return GeneralPurpose.executeCommand("cp /storage/sdcard0/Frostbar/" + value + "/modules /system/lib/modules");
 
         } else {
@@ -74,13 +74,13 @@ public class XperiaSBlocks {
 
     public static void RecoveryBackup(String value) {
 
-        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p6 of=/storage/sdcard0/Frostbar/recovery/" + value + ".img");
+        GeneralPurpose.executeCommand("dd if=/dev/block/mmcblk0p11 of=/storage/sdcard0/Frostbar/recovery/" + value + ".img");
     }
 
     public static boolean SwitchRecovery(String value) {
 
 
-        return GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/recovery/" + value + " of=/dev/block/mmcblk0p6");
+        return GeneralPurpose.executeCommand("dd if=/storage/sdcard0/Frostbar/recovery/" + value + " of=/dev/block/mmcblk0p11");
 
     }
 }
