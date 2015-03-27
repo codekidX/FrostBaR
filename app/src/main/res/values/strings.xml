@@ -5,7 +5,7 @@
     <string name="rec_pref_title">Recovery</string>
     <string name="backup_epref_title">Backup Kernel</string>
     <string name="backup_mod_epref_title">Backup Kernel with Modules</string>
-    <string name="restore_epref_title">Restore Kernel</string>
+    <string name="restore_epref_title">Flash/Restore Kernel</string>
     <string name="restore_mod_epref_title">Restore Kernel with Modules</string>
     <string name="backup_mod_epref_summary">Backup currently running kernel with modules. Modules are the one responsible for basic features working like WiFi. You can use this option when you backup frost for the first time.</string>
     <string name="backup_epref_summary">Backup currently running kernel</string>
@@ -22,4 +22,8 @@
     <string name="delete_summary">Clicking on this option will delete all backup images.</string>
     <string name="gplus_profile">https://plus.google.com/+AshishShekar/posts</string>
     <string name="select_device">Select your device</string>
+    <string name="title_activity_device_selection">DeviceSelectionActivity</string>
+    <string name="device_selection">Select your device from the below dropdown to proceed :</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.ashish.frostbar;
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,8 +16,13 @@ import android.preference.SwitchPreference;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.ashish.frostbar.helper.GalaxyGrandBlocks;
+import com.ashish.frostbar.helper.GeneralPurpose;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -90,7 +96,8 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         File firstKernel = new File("/storage/sdcard0/Frostbar/firstboot.img");
 
         if (!firstKernel.exists()) {
-            boolean firstbackup = backupFirstKernel();
+
+            boolean firstbackup = GalaxyGrandBlocks.backupFirstKernel();
             if (firstbackup) {
 
                 updateRestoreList();
@@ -192,73 +199,6 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         return super.onOptionsItemSelected(item);
     }
 
-    private void BootBackup(String value) {
-
-        executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/" + value + ".img");
-    }
-
-    private void BootBackupWithModules(String value) {
-
-        File file = new File("/storage/sdcard0/Frostbar/" + value);
-        if (file.exists()) {
-
-            file.delete();
-
-        } else {
-
-            file.mkdirs();
-
-        }
-        File modules = new File("/storage/sdcard0/Frostbar/" + value + "/modules");
-
-        executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img");
-        executeCommand("cp /system/lib/modules/* /storage/sdcard0/Frostbar/" + value + "/modules");
-    }
-
-
-    private boolean RestoreBackup(String value) {
-
-
-        return executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + " of=/dev/block/mmcblk0p5");
-
-    }
-
-    private boolean RestoreBackupWithModules(String value) {
-
-        File file = new File("/storage/sdcard0/Frostbar/" + value);
-        if (file.exists()) {
-
-            File modules = new File("/storage/sdcard0/Frostbar/" + value + "/modules");
-            if(!modules.exists()) {
-
-                modules.mkdirs();
-
-            }
-
-            executeCommand("dd if=/storage/sdcard0/Frostbar/" + value + "/" + value + ".img of=/dev/block/mmcblk0p5");
-            return executeCommand("cp /storage/sdcard0/Frostbar/" + value + "/modules /system/lib/modules");
-
-        } else {
-
-            Toast.makeText(getBaseContext(), "Backup does not exists", Toast.LENGTH_SHORT).show();
-            return false;
-
-        }
-
-    }
-
-    private void RecoveryBackup(String value) {
-
-        executeCommand("dd if=/dev/block/mmcblk0p6 of=/storage/sdcard0/Frostbar/recovery/" + value + ".img");
-    }
-
-    private boolean SwitchRecovery(String value) {
-
-
-        return executeCommand("dd if=/storage/sdcard0/Frostbar/recovery/" + value + " of=/dev/block/mmcblk0p6");
-
-    }
-
 
     @Override
     protected void onResume() {
@@ -280,7 +220,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        normalShell("su -c reboot");
+                        GeneralPurpose.normalShell("su -c reboot");
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -312,25 +252,25 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         } else if (preference == mBackupPreference) {
 
             String value = (String) newValue;
-            BootBackup(value);
+            GalaxyGrandBlocks.BootBackup(value);
             Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             updateRestoreList();
         } else if (preference == mBackupModPreference) {
 
             String value = (String) newValue;
-            BootBackupWithModules(value);
+            GalaxyGrandBlocks.BootBackupWithModules(value);
             Toast.makeText(getBaseContext(), "Backup of " + value + " with modules is done", Toast.LENGTH_SHORT).show();
             updateRestoreWithModuleList();
         } else if (preference == mBackupRecoveryPreference) {
 
             String value = (String) newValue;
-            RecoveryBackup(value);
+            GalaxyGrandBlocks.RecoveryBackup(value);
             Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             updateRecoveryList();
         } else if (preference == mRestorePreference) {
 
             String value = (String) newValue;
-            boolean restoreState = RestoreBackup(value);
+            boolean restoreState = GalaxyGrandBlocks.RestoreBackup(value);
             if (restoreState) {
                 rebootDialog.show();
                 Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
@@ -340,7 +280,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         } else if (preference == mRestoreModPreference) {
 
             String value = (String) newValue;
-            boolean restoreState = RestoreBackupWithModules(value);
+            boolean restoreState = GalaxyGrandBlocks.RestoreBackupWithModules(value, getApplicationContext());
             if (restoreState) {
                 rebootDialog.show();
                 Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
@@ -350,7 +290,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
         } else if (preference == mRecoveryPreference) {
 
             String value = (String) newValue;
-            boolean restoreState = SwitchRecovery(value);
+            boolean restoreState = GalaxyGrandBlocks.SwitchRecovery(value);
             if (restoreState) {
                 rebootDialog.show();
             } else {
@@ -374,87 +314,26 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
 
     }
 
-    private boolean backupFirstKernel() {
 
 
-        return executeCommand("dd if=/dev/block/mmcblk0p5 of=/storage/sdcard0/Frostbar/firstboot.img");
-
-    }
-
-    private static String normalShell(String normalCommand) {
-
-        String rOutput = null;
-        try {
-            Process mProcess = Runtime.getRuntime().exec(normalCommand);
-            mProcess.waitFor();
-            BufferedReader mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
-            rOutput = mReader.readLine();
-            Log.i(TAG, "Output from normalShell = " + rOutput);
-        } catch (IOException e) {
-            Log.e(TAG, "CommandShell: Unable to execute command at shell without root - I/O Exception");
-        } catch (InterruptedException e) {
-            Log.e(TAG, "CommandShell: Unable to execute command at shell without root - Process interrupted");
-        }
-
-        return rOutput;
-
-
-    }
-
-    private static boolean executeCommand(String command) {
-
-        try {
-            Process getRootAccess = Runtime.getRuntime().exec("su");
-            DataOutputStream getRootAccessDos = new DataOutputStream(getRootAccess.getOutputStream());
-            getRootAccessDos.writeBytes(command + "\n");
-            getRootAccessDos.writeBytes("exit\n");
-            getRootAccessDos.flush();
-            getRootAccess.waitFor();
-
-            if (getRootAccess.exitValue() == 1) {
-
-                Log.e(TAG, "CommandShell: SuperUser Access demied.");
-                return false;
-
-            } else {
-
-
-                Log.i(TAG, "CommandShell: SuperUser permission granted.");
-                return true;
-            }
-
-        } catch (IOException e) {
-
-            Log.e(TAG, "CommandShell: Unable to execute command as superuser!");
-            return false;
-
-        } catch (InterruptedException e) {
-
-            Log.e(TAG, "CommandShell: executeCommand method interrupted");
-            return false;
-
-        }
-
-
-    }
 
     private boolean currentMsimStatus() {
         String msimValue = "dsds";
-        String msimStatus = normalShell(cGetMsim);
+        String msimStatus = GeneralPurpose.normalShell(cGetMsim);
         return msimStatus.equals(msimValue);
 
     }
 
     private void enableMsim() {
 
-        boolean eCommand = executeCommand(cSetDualMsim);
+        boolean eCommand = GeneralPurpose.executeCommand(cSetDualMsim);
 
 
     }
 
     private void disableMsim() {
 
-        boolean dCommand = executeCommand(cSetSingleMsim);
+        boolean dCommand = GeneralPurpose.executeCommand(cSetSingleMsim);
 
     }
 
@@ -547,4 +426,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
                 });
 
     }
+
+
+
 }
