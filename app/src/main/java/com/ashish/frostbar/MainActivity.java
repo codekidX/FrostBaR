@@ -285,10 +285,10 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             String value = (String) newValue;
             if(deviceName.equals(grand)) {
                 GalaxyGrandBlocks.BootBackup(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Grand : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             } else if(deviceName.equals(xperiaS)) {
                 XperiaSBlocks.BootBackup(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Xperia S : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             }
             updateRestoreList();
         } else if (preference == mBackupModPreference) {
@@ -296,10 +296,10 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             String value = (String) newValue;
             if(deviceName.equals(grand)) {
                 GalaxyGrandBlocks.BootBackupWithModules(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Grand : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             } else if(deviceName.equals(xperiaS)) {
                 XperiaSBlocks.BootBackupWithModules(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Xperia S : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             }
             updateRestoreWithModuleList();
         } else if (preference == mBackupRecoveryPreference) {
@@ -307,10 +307,10 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             String value = (String) newValue;
             if(deviceName.equals(grand)) {
                 GalaxyGrandBlocks.RecoveryBackup(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Grand : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             } else if(deviceName.equals(xperiaS)) {
                 XperiaSBlocks.RecoveryBackup(value);
-                Toast.makeText(getBaseContext(), "Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Xperia S : Backup of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             }
             updateRecoveryList();
         } else if (preference == mRestorePreference) {
@@ -320,7 +320,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
                boolean restoreState = GalaxyGrandBlocks.RestoreBackup(value);
                 if (restoreState) {
                     rebootDialog.show();
-                    Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Grand : Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
                 }
@@ -329,7 +329,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
                 boolean restoreState = XperiaSBlocks.RestoreBackup(value);
                 if (restoreState) {
                     rebootDialog.show();
-                    Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Xperia S : Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
                 }
@@ -342,7 +342,7 @@ public class MainActivity extends PreferenceActivity implements PreferenceScreen
             boolean restoreState = GalaxyGrandBlocks.RestoreBackupWithModules(value, getApplicationContext());
             if (restoreState) {
                 rebootDialog.show();
-                Toast.makeText(getBaseContext(), "Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Grand : Restore of " + value + ".img is done", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getBaseContext(), "An error occured did you give root permission ?", Toast.LENGTH_SHORT).show();
             }
